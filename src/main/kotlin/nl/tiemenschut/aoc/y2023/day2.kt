@@ -16,17 +16,15 @@ fun main() {
         val greenRegex = "(\\d*) green".toRegex()
         val blueRegex = "(\\d*) blue".toRegex()
 
-        fun String.toGame(): Game {
-            return Game(
-                id = gameIdRegex.find(this)!!.groupValues[1].toInt(),
-                turns = split(":")[1].split(";").map { turn ->
-                    Turn(
-                        red = redRegex.find(turn)?.groupValues?.last()?.toInt() ?: 0,
-                        green = greenRegex.find(turn)?.groupValues?.last()?.toInt() ?: 0,
-                        blue = blueRegex.find(turn)?.groupValues?.last()?.toInt() ?: 0,
-                    )
-                })
-        }
+        fun String.toGame() = Game(
+            id = gameIdRegex.find(this)!!.groupValues[1].toInt(),
+            turns = split(":")[1].split(";").map { turn ->
+                Turn(
+                    red = redRegex.find(turn)?.groupValues?.last()?.toInt() ?: 0,
+                    green = greenRegex.find(turn)?.groupValues?.last()?.toInt() ?: 0,
+                    blue = blueRegex.find(turn)?.groupValues?.last()?.toInt() ?: 0,
+                )
+            })
 
         part1 { input ->
             input
