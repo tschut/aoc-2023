@@ -13,5 +13,5 @@ group = "nl.tiemenschut"
 version = "1.0-SNAPSHOT"
 
 dependencies {
-    implementation("io.github.tschut:aoc-dsl:0.1.13")
+    implementation("io.github.tschut:aoc-dsl:0.2.0")
 }
