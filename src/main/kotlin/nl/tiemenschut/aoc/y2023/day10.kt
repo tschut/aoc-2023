@@ -26,7 +26,7 @@ fun Char.connectsDown() = this in listOf('S', '|', 'F', '7')
 fun Char.connectsLeft() = this in listOf('S', '-', 'J', '7')
 fun Char.connectsRight() = this in listOf('S', '-', 'F', 'L')
 
-object CharGridParser : InputParser<TubeMap> {
+object TubeMapParser : InputParser<TubeMap> {
     override fun parse(input: String): TubeMap {
         val lines = input.split("\n")
 
@@ -45,7 +45,7 @@ object CharGridParser : InputParser<TubeMap> {
 }
 
 fun main() {
-    aoc(CharGridParser) {
+    aoc(TubeMapParser) {
         puzzle { 2023 day 10 }
 
         part1 { input ->
