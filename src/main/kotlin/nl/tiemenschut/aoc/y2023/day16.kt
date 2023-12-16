@@ -49,19 +49,6 @@ fun main() {
     aoc(CharGridParser) {
         puzzle { 2023 day 16 }
 
-        val test = """
-            .|...\....
-            |.-.\.....
-            .....|-...
-            ........|.
-            ..........
-            .........\
-            ..../.\\..
-            .-.-/..|..
-            .|....-|.\
-            ..//.|....
-        """.trimIndent()
-
         fun propagateBeams(beams: Set<Beam>, visited: Set<Beam>, grid: Grid<Char>): Set<Beam> {
             val next = beams
                 .flatMap { it.next(grid[it.first]) }
