@@ -9,6 +9,7 @@ import nl.tiemenschut.aoc.lib.util.grid.CharGridParser
 import nl.tiemenschut.aoc.lib.util.grid.Grid
 import nl.tiemenschut.aoc.lib.util.points.Point
 import nl.tiemenschut.aoc.lib.util.points.by
+import java.util.PriorityQueue
 
 fun main() {
     aoc(CharGridParser) {
@@ -45,11 +46,11 @@ fun main() {
 
             data class PathFindingPoint(val pos: Point<Int>, val directions: List<Direction>, val cost: Int)
 
-            fun Grid<Char>.findCheapest(points: ArrayDeque<PathFindingPoint>): Int {
+            fun Grid<Char>.findCheapest(points: PriorityQueue<PathFindingPoint>): Int {
                 var totalIter = 0
                 var best = input.bestimate()
                 while (points.isNotEmpty()) {
-                    val p = points.removeFirst()
+                    val p = points.poll()
                     if (p.cost >= best) continue
                     totalIter++
 
@@ -79,7 +80,8 @@ fun main() {
                 return best
             }
 
-            val start = ArrayDeque(listOf(PathFindingPoint(0 by 0, emptyList(), 0)))
+            val start = PriorityQueue<PathFindingPoint>(1) { o1, o2 -> o1.cost.compareTo(o2.cost) }
+            start.add(PathFindingPoint(0 by 0, emptyList(), 0))
             input.findCheapest(start)
         }
 
@@ -111,11 +113,11 @@ fun main() {
 
             data class PathFindingPoint(val pos: Point<Int>, val directions: List<Direction>, val cost: Int)
 
-            fun Grid<Char>.findCheapest(points: ArrayDeque<PathFindingPoint>): Int {
+            fun Grid<Char>.findCheapest(points: PriorityQueue<PathFindingPoint>): Int {
                 var totalIter = 0
                 var best = input.bestimatePart2()
                 while (points.isNotEmpty()) {
-                    val p = points.removeFirst()
+                    val p = points.poll()
                     if (p.cost >= best) continue
                     totalIter++
 
@@ -153,7 +155,8 @@ fun main() {
                 return best
             }
 
-            val start = ArrayDeque(listOf(PathFindingPoint(0 by 0, emptyList(), 0)))
+            val start = PriorityQueue<PathFindingPoint>(1) { o1, o2 -> o1.cost.compareTo(o2.cost) }
+            start.add(PathFindingPoint(0 by 0, emptyList(), 0))
             input.findCheapest(start)
         }
     }
