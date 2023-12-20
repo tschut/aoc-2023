@@ -3,8 +3,6 @@ package nl.tiemenschut.aoc.y2023
 import nl.tiemenschut.aoc.lib.dsl.aoc
 import nl.tiemenschut.aoc.lib.dsl.day
 import nl.tiemenschut.aoc.lib.dsl.parser.InputParser
-import kotlin.math.abs
-import kotlin.math.min
 
 enum class XMAS { X, M, A, S }
 
@@ -26,12 +24,12 @@ object WorkFlowParser : InputParser<Pair<WorkFlowStart, List<Part>>> {
             val rules = workflow.split("{")[1].split("}")[0].split(",")
                 .map {
                     if (":" !in it) {
-                        Rule(XMAS.X,  1..4000, workflowMap.getOrPut(it) { WorkFlow(it) })
+                        Rule(XMAS.X, 1..4000, workflowMap.getOrPut(it) { WorkFlow(it) })
                     } else {
                         val number = it.split(":").first().substring(2).toInt()
                         Rule(
                             value = XMAS.valueOf("${it[0]}".uppercase()),
-                            range = if (it.contains("<")) 1 until number else number + 1 .. 4000,
+                            range = if (it.contains("<")) 1 until number else number + 1..4000,
                             target = workflowMap.getOrPut(it.split(":").last()) { WorkFlow(it.split(":").last()) })
                     }
                 }
@@ -96,12 +94,13 @@ fun main() {
                 w.rules.forEach { rule ->
                     var split = if (rule.range.first == 1) rule.range.last else rule.range.first
                     split += (if (rule.range.last == 4000) 0 else 1)
-                    var a: RangedXmas? = null; var b: RangedXmas? = null
+                    var a: RangedXmas? = null
+                    var b: RangedXmas? = null
                     when (rule.value) {
                         XMAS.X -> {
                             if (split != 4000 && split in remainingRange.x) {
                                 a = remainingRange.copy(x = remainingRange.x.first until split)
-                                b = remainingRange.copy(x = split ..remainingRange.x.last)
+                                b = remainingRange.copy(x = split..remainingRange.x.last)
                             }
                         }
 
@@ -122,7 +121,7 @@ fun main() {
                         XMAS.S -> {
                             if (split != 4000 && split in remainingRange.s) {
                                 a = remainingRange.copy(s = remainingRange.s.first until split)
-                                b = remainingRange.copy(s = split ..remainingRange.s.last)
+                                b = remainingRange.copy(s = split..remainingRange.s.last)
                             }
                         }
                     }
